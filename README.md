@@ -46,15 +46,14 @@ vagrant@pad-dev:/opt/backend$ FLASK_APP=places.py flask run
 
 In a terminal, check the server...
 ```
-$ curl localhost:5000/places
-[{"key": 88, "city": "Portland"}, {"key": 42, "city": "Paris"}, {"key": 333, "city": "New York"}]
+$ vagrant ssh
+vagrant@pad-dev:~$ curl localhost:5000/places
+[{"city": "Portland", "key": 88}, {"city": "Paris", "key": 42}, {"city": "New York", "key": 333}]
 ```
-
-If you get `Connection reset by peer` instead, port-forwarding is not working between the host and vagrant guest.
 
 Now hack the app to return your amazing places.
 
-*What's missing?* **virtual environment, cors, nginx, etc**
+*What's missing?* **python virtual environment, cors, nginx, etc**
 
 ## Frontend
 
@@ -68,6 +67,17 @@ vagrant@pad-dev:/opt$ create-react-app frontend
 Changing only `src/App.js`, you should be able to display your places data. Ahem, of course not, that would require cors, and we are not going there on a quick jaunt.
 
 So add a proxy to `package.json`, and then you're good. (Reminder: edit files in ubuntu to avoid restarting the server to load `App.js` updates.)
+
+Serve the frontend via...
+```
+$ cd vagrant/pad_dev/
+$ vagrant ssh
+vagrant@pad-dev:~$ cd /opt/frontend/
+vagrant@pad-dev:/opt/frontend$ npm install
+vagrant@pad-dev:/opt/frontend$ npm start
+```
+
+Now visit `http://localhost:3000` in your browser.
 
 If aching to waste time, you could try adding anything to dependencies. Maybe you're not that character who gets turned around and dizzy, but for the rest, this requires using `npm install --save your-superior-module`.
 
