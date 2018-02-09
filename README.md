@@ -35,12 +35,22 @@ You could use django, but try [Flask](http://flask.pocoo.org).
 
 Create hello-world, but name the file `places.py`.
 
-Now serve it via
+Serve the backend api via...
 ```
-FLASK_APP=places.py flask run
+$ cd vagrant/pad_dev/
+$ vagrant up
+$ vagrant ssh
+vagrant@pad-dev:~$ cd /opt/backend
+vagrant@pad-dev:/opt/backend$ FLASK_APP=places.py flask run
 ```
 
-In a terminal, check `curl localhost:5000`.
+In a terminal, check the server...
+```
+$ curl localhost:5000/places
+[{"key": 88, "city": "Portland"}, {"key": 42, "city": "Paris"}, {"key": 333, "city": "New York"}]
+```
+
+If you get `Connection reset by peer` instead, port-forwarding is not working between the host and vagrant guest.
 
 Now hack the app to return your amazing places.
 
