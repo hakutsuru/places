@@ -20,7 +20,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     pad.vm.box = 'trusty'
     pad.vm.box_url = BOX_SOURCE + BOX_TYPE
     pad.vm.network "private_network", ip: IP_ADDRESS[:pad_dev]
-    pad.vm.network :forwarded_port, guest: 5000, host: 5000, auto_correct: false
+    # `curl localhost:5000/places` on host will result in connection drop
+    # which could be fixed by flask configuration, but that's not a good idea
+    # pad.vm.network :forwarded_port, guest: 5000, host: 5000, auto_correct: false
     pad.vm.network :forwarded_port, guest: 3000, host: 3000, auto_correct: false
     pad.vm.hostname = "pad-dev"
 
